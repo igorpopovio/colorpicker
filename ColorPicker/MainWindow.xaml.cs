@@ -72,8 +72,10 @@ namespace ColorPicker
                         var color = GetColorAt(p.X, p.Y);
                         var myRgb = new Rgb { R = color.R, G = color.G, B = color.B };
                         var lch = myRgb.To<Lch>();
-                        border.Background = new SolidColorBrush(color);
-                        text.Text = $"H: {lch.H:0.##} C: {lch.C:0.##} L: {lch.L:0.##}";
+                        SelectedColor.Background = new SolidColorBrush(color);
+                        Hue.Text = $"{lch.H:0.##}";
+                        Chroma.Text = $"{lch.C:0.##}";
+                        Luminance.Text = $"{lch.L:0.##}";
                     }));
 
                     Thread.Sleep(100);

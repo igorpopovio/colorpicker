@@ -12,12 +12,69 @@
         Closing="Window_Closing"
         Topmost="True">
     <Grid>
-        <Border x:Name="border"
-                Background="Red" />
-        <TextBlock x:Name="text"
-                   FontSize="40"
-                   Foreground="White"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Border x:Name="SelectedColor"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Grid.ColumnSpan="3" />
+        <TextBlock x:Name="HueLabel"
+                   Grid.Row="1"
+                   TextWrapping="Wrap"
+                   Text="HUE"
+                   TextAlignment="Right"
+                   FontFamily="Segoe UI Black"
+                   TextDecorations="{x:Null}"
+                   VerticalAlignment="Bottom"
+                   Margin="0,0,20,0" />
+        <TextBlock x:Name="ChromaLabel"
+                   Grid.Row="1"
+                   TextWrapping="Wrap"
+                   Text="CHROMA"
+                   Grid.Column="1"
+                   TextAlignment="Right"
+                   FontFamily="Segoe UI Black"
+                   TextDecorations="{x:Null}"
+                   VerticalAlignment="Bottom"
+                   Margin="0,0,20,0" />
+        <TextBlock x:Name="LuminanceLabel"
+                   Grid.Row="1"
+                   TextWrapping="Wrap"
+                   Text="LUMINANCE"
+                   Grid.Column="2"
+                   TextAlignment="Right"
+                   FontFamily="Segoe UI Black"
+                   TextDecorations="{x:Null}"
+                   VerticalAlignment="Bottom"
+                   Margin="0,0,20,0" />
+        <TextBlock x:Name="Hue"
+                   Grid.Row="2"
+                   TextWrapping="Wrap"
+                   Text="TextBlock"
+                   TextAlignment="Right"
+                   Margin="0,0,20,0" />
+        <TextBlock x:Name="Chroma"
+                   Grid.Row="2"
+                   TextWrapping="Wrap"
+                   Text="TextBlock"
+                   Grid.Column="1"
+                   TextAlignment="Right"
+                   Margin="0,0,20,0" />
+        <TextBlock x:Name="Luminance"
+                   Grid.Row="2"
+                   TextWrapping="Wrap"
+                   Text="TextBlock"
+                   Grid.Column="2"
+                   TextAlignment="Right"
+                   Margin="0,0,20,0" />
+
     </Grid>
 </Window>
