@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 using Point = System.Drawing.Point;
 
@@ -15,15 +14,9 @@ namespace ColorPicker
     /// </summary>
     public partial class MainWindow : Window
     {
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetCursorPos(ref Point lpPoint);
-
-
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -34,6 +27,9 @@ namespace ColorPicker
         public static extern uint GetPixel(IntPtr dc, int x, int y);
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int ReleaseDC(IntPtr window, IntPtr dc);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetCursorPos(ref Point lpPoint);
 
         public static Color GetColorAt(int x, int y)
         {
@@ -60,18 +56,9 @@ namespace ColorPicker
             BLUE = 16,
         }
 
-        //private void Window_MouseMove(object sender, MouseEventArgs e)
-        //{
-        //    var p = PointToScreen(Mouse.GetPosition(this));
-        //    var color = GetColorAt((int)p.X, (int)p.Y);
-        //    border.Background = new SolidColorBrush(color);
-        //    e.Handled = false;
-        //}
-
         bool isRunning;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //CaptureMouse();
             isRunning = true;
             new Thread(() =>
             {
@@ -96,8 +83,6 @@ namespace ColorPicker
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            //base.OnClosing(e);
-            //ReleaseMouseCapture();
             isRunning = false;
         }
     }
