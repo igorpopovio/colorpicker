@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorMine.ColorSpaces;
+using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -22,7 +23,7 @@ namespace ColorPicker
         public MainWindow()
         {
             InitializeComponent();
-            
+
         }
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -67,12 +68,14 @@ namespace ColorPicker
         //    e.Handled = false;
         //}
 
+        bool isRunning;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //CaptureMouse();
+            isRunning = true;
             new Thread(() =>
             {
-                while (true)
+                while (isRunning)
                 {
                     Point p = new Point();
                     GetCursorPos(ref p);
@@ -80,7 +83,10 @@ namespace ColorPicker
                     Dispatcher.BeginInvoke(new Action(() =>
                     {
                         var color = GetColorAt(p.X, p.Y);
+                        var myRgb = new Rgb { R = color.R, G = color.G, B = color.B };
+                        var lch = myRgb.To<Lch>();
                         border.Background = new SolidColorBrush(color);
+                        text.Text = $"H: {lch.H:0.##} C: {lch.C:0.##} L: {lch.L:0.##}";
                     }));
 
                     Thread.Sleep(100);
@@ -88,10 +94,11 @@ namespace ColorPicker
             }).Start();
         }
 
-        //private void Window_Closing(object sender, CancelEventArgs e)
-        //{
-        //    base.OnClosing(e);
-        //    ReleaseMouseCapture();
-        //}
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            //base.OnClosing(e);
+            //ReleaseMouseCapture();
+            isRunning = false;
+        }
     }
 }

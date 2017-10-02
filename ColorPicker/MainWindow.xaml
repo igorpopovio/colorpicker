@@ -9,7 +9,7 @@
         Height="350"
         Width="525"
         Loaded="Window_Loaded"
-        >
+        Closing="Window_Closing">
 
     <!--MouseMove="Window_MouseMove"
         Loaded="Window_Loaded"
@@ -18,5 +18,10 @@
     <Grid>
         <Border x:Name="border"
                 Background="Red" />
+        <TextBlock x:Name="text"
+                   FontSize="40"
+                   Foreground="White"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
     </Grid>
 </Window>
