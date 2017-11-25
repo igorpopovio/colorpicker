@@ -81,10 +81,10 @@ namespace ColorPicker
                             B = colorUnderCursor.B
                         };
                         var lch = myRgb.To<Lch>();
-                        SelectedColor.Background = new SolidColorBrush(colorUnderCursor);
-                        Hue.Text = $"{lch.H:0.##}";
-                        Chroma.Text = $"{lch.C:0.##}";
-                        Luminance.Text = $"{lch.L:0.##}";
+                        //SelectedColor.Background = new SolidColorBrush(colorUnderCursor);
+                        //Hue.Text = $"{lch.H:0.##}";
+                        //Chroma.Text = $"{lch.C:0.##}";
+                        //Luminance.Text = $"{lch.L:0.##}";
                     }));
 
                     Thread.Sleep(100);
@@ -100,6 +100,19 @@ namespace ColorPicker
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             isRunning = false;
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            // Begin dragging the window
+            this.DragMove();
+        }
+
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
