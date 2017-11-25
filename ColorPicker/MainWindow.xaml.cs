@@ -81,7 +81,7 @@ namespace ColorPicker
                             B = colorUnderCursor.B
                         };
                         var lch = myRgb.To<Lch>();
-                        //SelectedColor.Background = new SolidColorBrush(colorUnderCursor);
+                        SelectedColor.Fill = new SolidColorBrush(colorUnderCursor);
                         //Hue.Text = $"{lch.H:0.##}";
                         //Chroma.Text = $"{lch.C:0.##}";
                         //Luminance.Text = $"{lch.L:0.##}";
