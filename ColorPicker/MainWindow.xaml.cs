@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using Point = System.Drawing.Point;
 
@@ -57,9 +58,12 @@ namespace ColorPicker
         }
 
         bool isRunning;
+        Color colorUnderCursor;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             isRunning = true;
+            new HotKey(Key.C, KeyModifier.Ctrl, CopyToClipboard);
+
             new Thread(() =>
             {
                 while (isRunning)
@@ -69,10 +73,15 @@ namespace ColorPicker
 
                     Dispatcher.BeginInvoke(new Action(() =>
                     {
-                        var color = GetColorAt(p.X, p.Y);
-                        var myRgb = new Rgb { R = color.R, G = color.G, B = color.B };
+                        colorUnderCursor = GetColorAt(p.X, p.Y);
+                        var myRgb = new Rgb
+                        {
+                            R = colorUnderCursor.R,
+                            G = colorUnderCursor.G,
+                            B = colorUnderCursor.B
+                        };
                         var lch = myRgb.To<Lch>();
-                        SelectedColor.Background = new SolidColorBrush(color);
+                        SelectedColor.Background = new SolidColorBrush(colorUnderCursor);
                         Hue.Text = $"{lch.H:0.##}";
                         Chroma.Text = $"{lch.C:0.##}";
                         Luminance.Text = $"{lch.L:0.##}";
@@ -81,6 +90,11 @@ namespace ColorPicker
                     Thread.Sleep(100);
                 }
             }).Start();
+        }
+
+        private void CopyToClipboard(HotKey key)
+        {
+            Clipboard.SetText(colorUnderCursor.ToString());
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
