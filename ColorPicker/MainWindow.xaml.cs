@@ -59,9 +59,11 @@ namespace ColorPicker
 
         bool isRunning;
         Color colorUnderCursor;
+        Color backgroundColor;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             isRunning = true;
+            backgroundColor = ((SolidColorBrush)FindResource("Background")).Color;
             new HotKey(Key.C, KeyModifier.Ctrl, CopyToClipboard);
 
             new Thread(() =>
@@ -82,6 +84,9 @@ namespace ColorPicker
                         };
                         var lch = myRgb.To<Lch>();
                         SelectedColor.Fill = new SolidColorBrush(colorUnderCursor);
+                        HelpText.Visibility = colorUnderCursor == backgroundColor ?
+                                                Visibility.Visible :
+                                                Visibility.Hidden;
                         //Hue.Text = $"{lch.H:0.##}";
                         //Chroma.Text = $"{lch.C:0.##}";
                         //Luminance.Text = $"{lch.L:0.##}";
