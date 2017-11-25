@@ -6,22 +6,27 @@
         xmlns:local="clr-namespace:ColorPicker"
         mc:Ignorable="d"
         Title="Color Picker"
-        Height="719.5"
-        Width="501"
+        Height="650"
+        Width="500"
         Loaded="Window_Loaded"
         Closing="Window_Closing"
         Topmost="True"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#FF323232">
+        Background="{DynamicResource Background}">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Background"
+                         Color="#FF323232" />
+    </Window.Resources>
     <Grid x:Name="appGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="180" />
         </Grid.ColumnDefinitions>
         <Grid x:Name="menuGrid"
               Margin="0,0,10,0"
-              Grid.Column="1">
+              Grid.Column="1"
+              Background="{StaticResource Background}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="121*" />
@@ -46,10 +51,11 @@
               VerticalAlignment="Top"
               Data="M92.691898,0.5 L433.3569,0.5 433.3569,440.16499 341.165,440.16499 341.165,615.21901 0.5,615.21901 0.5,175.554 92.691898,175.554 z"
               Height="615.719"
-              Margin="-60.615,-398.725,-22.242,0"
+              Margin="-54.615,-347.725,-28.242,0"
               RenderTransformOrigin="0.393753093085667,0.642154123583355"
               StrokeThickness="0"
-              Stretch="Fill">
+              Stretch="Fill"
+              Panel.ZIndex="-1">
             <Path.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
@@ -59,6 +65,5 @@
                 </TransformGroup>
             </Path.RenderTransform>
         </Path>
-
     </Grid>
 </Window>
